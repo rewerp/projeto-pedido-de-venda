@@ -46,6 +46,7 @@ type
     dbgItensPedido: TDBGrid;
     lbPrecoTotalPedidoValor: TLabel;
     lbPrecoTotalPedido: TLabel;
+    edtObservacaoPedido: TLabeledEdit;
     procedure btInserirAtualizarClick(Sender: TObject);
     procedure btGravarPedidoClick(Sender: TObject);
     procedure edtCodigoClienteExit(Sender: TObject);
@@ -70,6 +71,7 @@ type
     procedure CarregarDadosCliente();
     procedure CarregarDadosProduto();
     procedure FinalizarPedido();
+    procedure LimparDadosPedido();
     function PrepararFinalizacaoPedido(): TPedido;
   public
     { Public declarations }
@@ -228,11 +230,16 @@ end;
 procedure TFormPrincipal.FinalizarPedido;
 var
   LPedidoService: TPedidoService;
+  LPedido: TPedido;
 begin
+  LPedido := PrepararFinalizacaoPedido();
+
   LPedidoService := TPedidoService.Create(DMConnection.FDConnection);
-  LPedidoService.FinalizarPedido(PrepararFinalizacaoPedido());
+  LPedidoService.FinalizarPedido(LPedido);
 
   ShowMessage('Pedido finalizado com sucesso!');
+
+  LimparDadosPedido();
 end;
 
 procedure TFormPrincipal.FormCreate(Sender: TObject);
@@ -251,17 +258,53 @@ begin
   edtPrecoUnitarioProduto.ReadOnly := true;
 end;
 
+procedure TFormPrincipal.LimparDadosPedido;
+begin
+  edtCodigoCliente.Clear();
+  edtNomeCliente.Clear();
+  edtCidadeCliente.Clear();
+  edtUFCliente.Clear();
+
+  edtCodigoProduto.Clear();
+  edtDescricaoProduto.Clear();
+  edtQuantidadeProduto.Clear();
+  edtPrecoUnitarioProduto.Clear();
+
+  edtObservacaoPedido.Clear();
+
+  lbPrecoTotalPedidoValor.Caption := '0,00';
+
+  if FmtItensPedido.Active then
+  begin
+    FmtItensPedido.Close();
+    FmtItensPedido.Open();
+  end;
+
+  edtQuantidadeProduto.ReadOnly := true;
+  edtPrecoUnitarioProduto.ReadOnly := true;
+
+  if edtCodigoCliente.CanFocus() then
+    edtCodigoCliente.SetFocus();
+end;
+
 function TFormPrincipal.PrepararFinalizacaoPedido: TPedido;
 var
   LItem: TItemPedido;
 begin
+  if (trim(edtCodigoCliente.Text) = EmptyStr) or
+      (StrToCurrDef(Trim(StringReplace(lbPrecoTotalPedidoValor.Caption, '.', '', [rfReplaceAll])), 0) <= 0) or
+      (FmtItensPedido.IsEmpty()) then
+  begin
+    ShowMessage('Informe os dados do Pedido e Itens do Pedido.');
+    Abort();
+  end;
+
   Result := TPedido.Create();
 
   try
     Result.CodigoCliente := StrToInt(edtCodigoCliente.Text);
-//    Result.DataEmissao := Now();
     Result.ValorTotal := StrToCurr(Trim(StringReplace(lbPrecoTotalPedidoValor.Caption, '.', '', [rfReplaceAll])));
-//    Result.Observacao := edtObservacao.Text;
+    Result.Observacao := edtObservacaoPedido.Text;
 
     FmtItensPedido.First();
 

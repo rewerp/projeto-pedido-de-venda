@@ -20,7 +20,7 @@ type
     CodigoCliente: Integer;
     DataEmissao: TDateTime;
     ValorTotal: Currency;
-//    Observacao: string;
+    Observacao: string;
     Itens: TObjectList<TItemPedido>;
     constructor Create;
     destructor Destroy; override;

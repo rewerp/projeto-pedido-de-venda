@@ -183,7 +183,7 @@ object FormPrincipal: TFormPrincipal
       Top = 368
       Width = 31
       Height = 21
-      Anchors = [akRight, akBottom]
+      Anchors = [akLeft, akBottom]
       Caption = '0,00'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -197,6 +197,7 @@ object FormPrincipal: TFormPrincipal
       Top = 368
       Width = 206
       Height = 21
+      Anchors = [akLeft, akBottom]
       Caption = 'Pre'#231'o Total do Pedido (R$):'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -206,10 +207,10 @@ object FormPrincipal: TFormPrincipal
       ParentFont = False
     end
     object dbgItensPedido: TDBGrid
-      Left = 5
+      Left = 14
       Top = 24
-      Width = 726
-      Height = 338
+      Width = 707
+      Height = 281
       Anchors = [akLeft, akTop, akRight, akBottom]
       ReadOnly = True
       TabOrder = 0
@@ -219,6 +220,18 @@ object FormPrincipal: TFormPrincipal
       TitleFont.Name = 'Segoe UI'
       TitleFont.Style = []
       OnKeyUp = dbgItensPedidoKeyUp
+    end
+    object edtObservacaoPedido: TLabeledEdit
+      Left = 14
+      Top = 328
+      Width = 707
+      Height = 23
+      EditLabel.Width = 62
+      EditLabel.Height = 15
+      EditLabel.Caption = 'Observa'#231#227'o'
+      MaxLength = 100
+      TabOrder = 1
+      Text = ''
     end
   end
 end

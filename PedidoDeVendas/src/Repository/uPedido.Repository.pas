@@ -55,12 +55,12 @@ begin
   try
     LQuery.Connection := FConnection;
 
-    LQuery.SQL.Add('INSERT INTO PEDIDO (CODIGO_CLIENTE, VALOR_TOTAL)');
-    LQuery.SQL.Add('VALUES (:cliente, :valorTotal) RETURNING NUMERO_PEDIDO');
+    LQuery.SQL.Add('INSERT INTO PEDIDO (CODIGO_CLIENTE, VALOR_TOTAL, OBSERVACAO)');
+    LQuery.SQL.Add('VALUES (:cliente, :valorTotal, :observacao) RETURNING NUMERO_PEDIDO');
 
     LQuery.ParamByName('cliente').AsInteger := APedido.CodigoCliente;
     LQuery.ParamByName('valorTotal').AsCurrency := APedido.ValorTotal;
-//    LQuery.ParamByName('observacao').AsString := APedido.Observacao;
+    LQuery.ParamByName('observacao').AsString := APedido.Observacao;
     LQuery.Open;
 
     APedido.NumeroPedido := LQuery.FieldByName('NUMERO_PEDIDO').AsInteger;
