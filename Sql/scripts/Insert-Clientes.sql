@@ -1,0 +1,17 @@
+EXECUTE BLOCK AS BEGIN
+	INSERT INTO CLIENTE (NOME,CIDADE,UF) VALUES ('João Silva','São Paulo','SP');
+	INSERT INTO CLIENTE (NOME,CIDADE,UF) VALUES ('Maria Oliveira','Rio de Janeiro','RJ');
+	INSERT INTO CLIENTE (NOME,CIDADE,UF) VALUES ('Carlos Souza','Belo Horizonte','MG');
+	INSERT INTO CLIENTE (NOME,CIDADE,UF) VALUES ('Ana Costa','Curitiba','PR');
+	INSERT INTO CLIENTE (NOME,CIDADE,UF) VALUES ('Pedro Santos','Porto Alegre','RS');
+	INSERT INTO CLIENTE (NOME,CIDADE,UF) VALUES ('Fernanda Lima','Salvador','BA');
+	INSERT INTO CLIENTE (NOME,CIDADE,UF) VALUES ('Ricardo Pereira','Recife','PE');
+	INSERT INTO CLIENTE (NOME,CIDADE,UF) VALUES ('Juliana Rocha','Fortaleza','CE');
+	INSERT INTO CLIENTE (NOME,CIDADE,UF) VALUES ('Lucas Martins','Brasília','DF');
+	INSERT INTO CLIENTE (NOME,CIDADE,UF) VALUES ('Beatriz Gomes','Goiânia','GO');
+	INSERT INTO CLIENTE (NOME,CIDADE,UF) VALUES ('Marcos Alves','Manaus','AM');
+	INSERT INTO CLIENTE (NOME,CIDADE,UF) VALUES ('Camila Ribeiro','Vitória','ES');
+	INSERT INTO CLIENTE (NOME,CIDADE,UF) VALUES ('Gabriel Fernandes','Florianópolis','SC');
+	INSERT INTO CLIENTE (NOME,CIDADE,UF) VALUES ('Larissa Carvalho','Natal','RN');
+	INSERT INTO CLIENTE (NOME,CIDADE,UF) VALUES ('Tiago Barbosa','Belém','PA');
+END;
