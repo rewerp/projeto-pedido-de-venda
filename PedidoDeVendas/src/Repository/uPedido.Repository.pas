@@ -36,9 +36,9 @@ begin
 
   try
     LQuery.Connection := FConnection;
-    LQuery.SQL.Add('SELECT NEXT VALUE FOR SEQ_PEDIDO_NUMERO FROM RDB$DATABASE');
+    LQuery.SQL.Add('SELECT NEXT VALUE FOR RDB$8 FROM RDB$DATABASE');
     LQuery.Open();
-//    LQuery.Open('SELECT NEXT VALUE FOR SEQ_PEDIDO_NUMERO FROM RDB$DATABASE');
+
     Result := LQuery.Fields[0].AsInteger;
   finally
     LQuery.Free;
@@ -55,11 +55,8 @@ begin
   try
     LQuery.Connection := FConnection;
 
-//    LQuery.SQL.Text := 'INSERT INTO PEDIDO (CODIGO_CLIENTE, VALOR_TOTAL, OBSERVACAO) ' +
-//                       'VALUES (:CLI, :TOTAL, :OBS) RETURNING NUMERO_PEDIDO';
-
-    LQuery.SQL.Add('INSERT INTO PEDIDO (CODIGO_CLIENTE, VALOR_TOTAL, OBSERVACAO)');
-    LQuery.SQL.Add('VALUES (:cliente, :valorTotal, :observacao) RETURNING NUMERO_PEDIDO');
+    LQuery.SQL.Add('INSERT INTO PEDIDO (CODIGO_CLIENTE, VALOR_TOTAL)');
+    LQuery.SQL.Add('VALUES (:cliente, :valorTotal) RETURNING NUMERO_PEDIDO');
 
     LQuery.ParamByName('cliente').AsInteger := APedido.CodigoCliente;
     LQuery.ParamByName('valorTotal').AsCurrency := APedido.ValorTotal;
@@ -70,9 +67,6 @@ begin
 
     LQuery.Close;
     LQuery.SQL.Clear;
-
-//    LQuery.SQL.Text := 'INSERT INTO PEDIDO_ITEM (NUMERO_PEDIDO, CODIGO_PRODUTO, QUANTIDADE, VLR_UNITARIO, VLR_TOTAL) ' +
-//                       'VALUES (:PED, :PROD, :QTD, :VLR, :TOTAL)';
 
     LQuery.SQL.Add('INSERT INTO PEDIDO_ITEM (NUMERO_PEDIDO, CODIGO_PRODUTO, QUANTIDADE, VLR_UNITARIO, VLR_TOTAL)');
     LQuery.SQL.Add('VALUES (:numeroPedido, :codigoProduto, :quantidade, :valorUnitario, :valorTotal)');

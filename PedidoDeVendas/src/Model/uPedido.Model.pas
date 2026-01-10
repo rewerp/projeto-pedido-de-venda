@@ -9,7 +9,6 @@ type
   TItemPedido = class
   public
     CodigoProduto: Integer;
-    Descricao: string;
     Quantidade: Double;
     ValorUnitario: Currency;
     ValorTotal: Currency;

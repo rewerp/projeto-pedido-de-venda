@@ -12,6 +12,7 @@ object FormPrincipal: TFormPrincipal
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poScreenCenter
+  OnCreate = FormCreate
   TextHeight = 15
   object gbDadosCliente: TGroupBox
     Left = 8
@@ -28,9 +29,11 @@ object FormPrincipal: TFormPrincipal
       EditLabel.Width = 96
       EditLabel.Height = 15
       EditLabel.Caption = 'C'#243'digo do Cliente'
+      NumbersOnly = True
       TabOrder = 0
       Text = ''
       OnExit = edtCodigoClienteExit
+      OnKeyUp = edtCodigoClienteKeyUp
     end
     object edtNomeCliente: TLabeledEdit
       Left = 144
@@ -87,9 +90,11 @@ object FormPrincipal: TFormPrincipal
       EditLabel.Width = 102
       EditLabel.Height = 15
       EditLabel.Caption = 'C'#243'digo do Produto'
+      NumbersOnly = True
       TabOrder = 0
       Text = ''
       OnExit = edtCodigoProdutoExit
+      OnKeyUp = edtCodigoProdutoKeyUp
     end
     object edtDescricaoProduto: TLabeledEdit
       Left = 144
@@ -112,8 +117,11 @@ object FormPrincipal: TFormPrincipal
       EditLabel.Width = 99
       EditLabel.Height = 15
       EditLabel.Caption = 'Pre'#231'o Unit'#225'rio (R$)'
+      MaxLength = 10
+      ReadOnly = True
       TabOrder = 3
       Text = ''
+      OnKeyPress = edtPrecoUnitarioProdutoKeyPress
     end
     object edtQuantidadeProduto: TLabeledEdit
       Left = 24
@@ -123,8 +131,11 @@ object FormPrincipal: TFormPrincipal
       EditLabel.Width = 62
       EditLabel.Height = 15
       EditLabel.Caption = 'Quantidade'
+      MaxLength = 10
+      ReadOnly = True
       TabOrder = 2
       Text = ''
+      OnKeyPress = edtQuantidadeProdutoKeyPress
     end
     object btInserirAtualizar: TButton
       Left = 552
@@ -167,12 +178,25 @@ object FormPrincipal: TFormPrincipal
     DesignSize = (
       737
       402)
+    object lbPrecoTotalPedidoValor: TLabel
+      Left = 234
+      Top = 368
+      Width = 31
+      Height = 21
+      Anchors = [akRight, akBottom]
+      Caption = '0,00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
     object lbPrecoTotalPedido: TLabel
-      Left = 348
+      Left = 14
       Top = 368
       Width = 206
       Height = 21
-      Anchors = [akRight, akBottom]
       Caption = 'Pre'#231'o Total do Pedido (R$):'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -180,39 +204,21 @@ object FormPrincipal: TFormPrincipal
       Font.Name = 'Segoe UI'
       Font.Style = [fsBold]
       ParentFont = False
-      ExplicitLeft = 220
-      ExplicitTop = 328
     end
-    object lbPrecoTotalPedidoValor: TLabel
-      Left = 560
-      Top = 368
-      Width = 162
-      Height = 21
-      Alignment = taRightJustify
-      Anchors = [akRight, akBottom]
-      Caption = '1.000,50'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentFont = False
-      ExplicitLeft = 432
-      ExplicitTop = 328
-    end
-    object DBGrid1: TDBGrid
+    object dbgItensPedido: TDBGrid
       Left = 5
       Top = 24
       Width = 726
       Height = 338
       Anchors = [akLeft, akTop, akRight, akBottom]
+      ReadOnly = True
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -12
       TitleFont.Name = 'Segoe UI'
       TitleFont.Style = []
-      OnKeyUp = DBGrid1KeyUp
+      OnKeyUp = dbgItensPedidoKeyUp
     end
   end
 end
